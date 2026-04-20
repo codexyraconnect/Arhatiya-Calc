@@ -1,56 +1,114 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-  <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=yes" />
-  <title>Arhatiya Calc • Mandi Bill Generator</title>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=yes, viewport-fit=cover">
   
-  <!-- SEO Meta Tags -->
-  <meta name="description" content="Professional mandi bill generator for arhtiyas and farmers. Generate I-Form, J-Form PDFs, save transaction history, batch download, offline support." />
-  <meta name="keywords" content="mandi bill, arhtiya, I-Form, J-Form, grain market, punjab mandi, farm billing, kacha arhtiya" />
-  <meta name="author" content="codexyralabs" />
-  <meta name="robots" content="index, follow" />
+  <!-- Primary SEO Meta Tags -->
+  <title>Arhatiya Calc - Professional Mandi Bill Generator for Arhtiyas &amp; Farmers</title>
+  <meta name="title" content="Arhatiya Calc - Professional Mandi Bill Generator">
+  <meta name="description" content="Generate I-Form, J-Form PDFs, save transaction history, batch download, offline support. Professional mandi bill generator for arhtiyas and farmers.">
+  <meta name="keywords" content="mandi bill, arhtiya, I-Form, J-Form, grain market, punjab mandi, farm billing, kacha arhtiya, agriculture bill, crop billing">
+  <meta name="author" content="codexyralabs">
+  <meta name="robots" content="index, follow">
+  <link rel="canonical" href="https://arhatiyacalc.netlify.app/">
   
-  <!-- Open Graph / Social Media (generic, point to codexyralabs.site) -->
-  <meta property="og:title" content="Arhatiya Calc - Mandi Bill Generator" />
-  <meta property="og:description" content="Easy mandi billing for arhtiyas. Generate PDFs, save history, offline support." />
-  <meta property="og:type" content="website" />
-  <meta property="og:url" content="https://codexyralabs.site/arhatiya-calc" />
-  <meta property="og:image" content="https://codexyralabs.site/logo.png" />
+  <!-- Open Graph / Social Media -->
+  <meta property="og:type" content="website">
+  <meta property="og:url" content="https://arhatiyacalc.netlify.app/">
+  <meta property="og:title" content="Arhatiya Calc - Mandi Bill Generator">
+  <meta property="og:description" content="Generate I-Form, J-Form PDFs, save transaction history, batch download, offline support. Professional mandi bill generator for arhtiyas and farmers.">
+  <meta property="og:image" content="https://arhatiyacalc.netlify.app/logo.png">
+  <meta property="og:site_name" content="Arhatiya Calc">
+  <meta property="og:locale" content="en_IN">
   
   <!-- Twitter Card -->
-  <meta name="twitter:card" content="summary" />
-  <meta name="twitter:title" content="Arhatiya Calc - Mandi Bill Generator" />
-  <meta name="twitter:description" content="Generate I-Form & J-Form PDFs instantly." />
+  <meta name="twitter:card" content="summary_large_image">
+  <meta name="twitter:title" content="Arhatiya Calc - Mandi Bill Generator">
+  <meta name="twitter:description" content="Generate I-Form &amp; J-Form PDFs instantly. Save history, batch download, offline.">
+  <meta name="twitter:image" content="https://arhatiyacalc.netlify.app/logo.png">
   
-  <!-- Structured Data (JSON-LD) -->
+  <!-- PWA & Icons -->
+  <link rel="manifest" href="manifest.json">
+  <link rel="icon" type="image/png" href="logo.png">
+  <link rel="apple-touch-icon" href="logo.png">
+  <meta name="theme-color" content="#fde047">
+  <meta name="apple-mobile-web-app-capable" content="yes">
+  <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+  
+  <!-- Performance Hints -->
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link rel="dns-prefetch" href="https://cdnjs.cloudflare.com">
+  
+  <!-- Fonts -->
+  <link href="https://fonts.googleapis.com/css2?family=Baloo+2:wght@400;500;600;700;800&family=Noto+Sans:wght@400;500;600;700&display=swap" rel="stylesheet">
+  
+  <!-- Scripts -->
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/html2canvas/1.4.1/html2canvas.min.js" defer></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf/2.5.1/jspdf.umd.min.js" defer></script>
+  
+  <!-- JSON-LD Structured Data -->
   <script type="application/ld+json">
   {
     "@context": "https://schema.org",
-    "@type": "SoftwareApplication",
-    "name": "Arhatiya Calc",
-    "description": "Mandi bill generation for arhtiyas and farmers",
-    "applicationCategory": "BusinessApplication",
-    "operatingSystem": "Web",
-    "offers": {
-      "@type": "Offer",
-      "price": "0",
-      "priceCurrency": "INR"
-    },
-    "author": {
-      "@type": "Organization",
-      "name": "codexyralabs",
-      "url": "https://instagram.com/codexyralabs"
-    }
+    "@graph": [
+      {
+        "@type": "SoftwareApplication",
+        "name": "Arhatiya Calc",
+        "url": "https://arhatiyacalc.netlify.app/",
+        "applicationCategory": "BusinessApplication",
+        "operatingSystem": "Web",
+        "description": "Professional mandi bill generator for arhtiyas and farmers. Generate I-Form, J-Form PDFs, save transaction history, batch download, offline support.",
+        "offers": {
+          "@type": "Offer",
+          "price": "0",
+          "priceCurrency": "INR",
+          "description": "Free to use"
+        },
+        "featureList": [
+          "I-Form & J-Form PDF generation",
+          "Transaction history with search & filter",
+          "Export to CSV",
+          "Batch PDF download as ZIP",
+          "Offline support & installable as PWA",
+          "Customizable shop details"
+        ],
+        "author": {
+          "@type": "Organization",
+          "name": "codexyralabs",
+          "url": "https://instagram.com/codexyralabs",
+          "email": "codexyra.connect@gmail.com"
+        }
+      },
+      {
+        "@type": "Organization",
+        "name": "codexyralabs",
+        "url": "https://instagram.com/codexyralabs",
+        "logo": "https://arhatiyacalc.netlify.app/logo.png",
+        "email": "codexyra.connect@gmail.com",
+        "sameAs": [
+          "https://instagram.com/codexyralabs"
+        ]
+      },
+      {
+        "@type": "WebSite",
+        "name": "Arhatiya Calc",
+        "url": "https://arhatiyacalc.netlify.app/",
+        "potentialAction": {
+          "@type": "SearchAction",
+          "target": {
+            "@type": "EntryPoint",
+            "urlTemplate": "https://arhatiyacalc.netlify.app/?search={search_term_string}"
+          },
+          "query-input": "required name=search_term_string"
+        }
+      }
+    ]
   }
   </script>
   
-  <link rel="manifest" href="manifest.json" />
-  <link rel="icon" type="image/png" href="logo.png" />
-  <link rel="apple-touch-icon" href="logo.png" />
-  <link href="https://fonts.googleapis.com/css2?family=Baloo+2:wght@400;500;600;700;800&family=Noto+Sans:wght@400;500;600;700&display=swap" rel="stylesheet">
-  <script src="https://cdnjs.cloudflare.com/ajax/libs/html2canvas/1.4.1/html2canvas.min.js"></script>
-  <script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf/2.5.1/jspdf.umd.min.js"></script>
+  <!-- Styles -->
   <style>
     * { box-sizing: border-box; margin: 0; padding: 0; }
     body {
@@ -106,9 +164,7 @@
       margin-top: 12px;
       display: none;
     }
-    .settings-panel.show {
-      display: block;
-    }
+    .settings-panel.show { display: block; }
     .settings-panel input, .settings-panel textarea {
       width: 100%;
       padding: 8px;
@@ -133,7 +189,13 @@
       width: 100%;
     }
     .reset-settings { background: #dc2626; color: white; }
-    .shop-address { color: #cbd5e1; font-size: 0.75rem; font-weight: 500; margin-top: 7px; white-space: pre-line; }
+    .shop-address {
+      color: #cbd5e1;
+      font-size: 0.75rem;
+      font-weight: 500;
+      margin-top: 7px;
+      white-space: pre-line;
+    }
     .card {
       background: #ffffff;
       border-radius: 18px;
@@ -313,7 +375,9 @@
       justify-content: center;
       gap: 6px;
       cursor: pointer;
+      transition: transform 0.1s;
     }
+    .btn:active { transform: scale(0.98); }
     .btn-pdf { background: #b45309; border-color: #92400e; }
     .btn-pdf2 { background: #047857; border-color: #065f46; }
     .btn-both { grid-column: span 2; background: #111827; }
@@ -354,9 +418,7 @@
       color: #facc15;
       text-decoration: none;
     }
-    .footer-credit a:hover {
-      text-decoration: underline;
-    }
+    .footer-credit a:hover { text-decoration: underline; }
     /* PDF styles */
     .pdf-template {
       position: absolute;
@@ -411,44 +473,45 @@
       display: block;
       margin: 0 auto;
     }
+    @media (max-width: 500px) {
+      .btn-group { gap: 8px; }
+      .btn { padding: 10px 6px; font-size: 0.75rem; }
+    }
   </style>
 </head>
 <body>
 <div class="app-container">
   <div class="shop-header">
-    <div class="shop-name">
-      <span id="shopNameDisplay">Code Xyra Trading</span>
-    </div>
+    <div class="shop-name"><span id="shopNameDisplay">Code Xyra Trading</span></div>
     <div class="shop-address" id="shopAddressDisplay"></div>
-    <button class="settings-btn" id="settingsBtn">⚙️ Settings</button>
+    <button class="settings-btn" id="settingsBtn" aria-label="Settings">⚙️ Settings</button>
     <div id="settingsPanel" class="settings-panel">
       <label>Shop Name</label>
-      <input type="text" id="shopNameInput" placeholder="Shop Name" />
+      <input type="text" id="shopNameInput" placeholder="Shop Name">
       <label>Address (line 1)</label>
-      <input type="text" id="shopAddress1" placeholder="Address line 1" />
+      <input type="text" id="shopAddress1" placeholder="Address line 1">
       <label>Address (line 2)</label>
-      <input type="text" id="shopAddress2" placeholder="Address line 2" />
+      <input type="text" id="shopAddress2" placeholder="Address line 2">
       <label>Contact No.</label>
-      <input type="text" id="shopContact" placeholder="Contact Number" />
+      <input type="text" id="shopContact" placeholder="Contact Number">
       <label>License No.</label>
-      <input type="text" id="shopLicense" placeholder="License No." />
+      <input type="text" id="shopLicense" placeholder="License No.">
       <label>GST / PAN</label>
-      <input type="text" id="shopGst" placeholder="GST/PAN" />
+      <input type="text" id="shopGst" placeholder="GST/PAN">
       <label>Logo URL (optional)</label>
-      <input type="text" id="shopLogoUrl" placeholder="https://.../logo.png" />
+      <input type="text" id="shopLogoUrl" placeholder="https://.../logo.png">
       <button class="save-settings" id="saveSettingsBtn">💾 Save Settings</button>
       <button class="reset-settings" id="resetSettingsBtn">⟳ Reset to Default</button>
     </div>
   </div>
 
-  <!-- CROP DETAILS -->
   <div class="card">
     <div class="card-header">🌱 CROP DETAILS</div>
     <div class="card-body">
       <div class="flex-row">
         <div class="flex-1">
           <div class="label-sm">Select Crop</div>
-          <select id="cropSelect" class="input-field">
+          <select id="cropSelect" class="input-field" aria-label="Crop selection">
             <option value="Wheat 2026" data-price="2585">🌾 Wheat 2026 — ₹2585/qtl</option>
             <option value="Paddy" data-price="2389">🌿 Paddy — ₹2389/qtl</option>
             <option value="Basmati" data-price="3000">🍚 Basmati — ₹3000/qtl</option>
@@ -457,24 +520,23 @@
         </div>
         <div class="flex-1">
           <div class="label-sm">Farmer / Seller</div>
-          <input type="text" id="farmerName" class="input-field" value="" placeholder="Enter farmer name" oninput="calculateAll()">
+          <input type="text" id="farmerName" class="input-field" value="" placeholder="Enter farmer name" oninput="calculateAll()" aria-label="Farmer name">
         </div>
       </div>
     </div>
   </div>
 
-  <!-- WEIGHT & BAGS -->
   <div class="card">
     <div class="card-header">⚖️ WEIGHT & BAGS</div>
     <div class="card-body">
       <div class="flex-row" style="margin-bottom: 8px;">
         <div class="flex-1 price-tag">
           <div class="prefix">₹ PRICE PER QTL</div>
-          <input type="number" id="pricePerQtl" value="2585" step="1" min="0" inputmode="numeric" oninput="calculateAll()">
+          <input type="number" id="pricePerQtl" value="2585" step="1" min="0" inputmode="numeric" oninput="calculateAll()" aria-label="Price per quintal">
         </div>
         <div class="flex-1 price-tag" style="background:#dcfce7; border-color:#86efac;">
           <div class="prefix" style="color:#166534;">NO. OF BAGS</div>
-          <input type="number" id="numBags" value="1" min="1" step="1" inputmode="numeric" oninput="calculateAll()">
+          <input type="number" id="numBags" value="1" min="1" step="1" inputmode="numeric" oninput="calculateAll()" aria-label="Number of bags">
         </div>
       </div>
       <div class="label-sm">Bag weight (kg)</div>
@@ -486,27 +548,25 @@
       </div>
       <div style="margin-top: 10px;">
         <div class="label-sm">Loose kg (extra)</div>
-        <input type="number" id="looseKg" class="input-field" value="0" min="0" step="0.1" inputmode="numeric" oninput="calculateAll()">
+        <input type="number" id="looseKg" class="input-field" value="0" min="0" step="0.1" inputmode="numeric" oninput="calculateAll()" aria-label="Loose kilograms">
       </div>
       <div class="note-extra">⚡ Extra labour if loose kg is at least half a bag weight.</div>
     </div>
   </div>
 
-  <!-- I-FORM PREVIEW -->
   <div class="card">
     <div class="card-header">📋 I - FORM</div>
     <div class="card-body">
       <table class="preview-table">
-        <tr><td>Crop</td><td id="dispCrop">Wheat 2026</td> </tr>
-        <tr><td>Bags</td><td id="dispBags">1 bags + 0 kg</td> </tr>
-        <tr><td>Weight (in Qtl)</td><td id="dispQtl">0.00 Qtl</td> </tr>
-        <tr><td>Price per qtl</td><td id="dispPrice">₹2585.00</td> </tr>
-        <tr><td style="font-weight:700;">Total</td><td id="dispTotalAmt" style="font-weight:700;">₹0.00</td> </tr>
+        <tr><td>Crop</td><td id="dispCrop">Wheat 2026</td></tr>
+        <tr><td>Bags</td><td id="dispBags">1 bags + 0 kg</td></tr>
+        <tr><td>Weight (in Qtl)</td><td id="dispQtl">0.00 Qtl</td></tr>
+        <tr><td>Price per qtl</td><td id="dispPrice">₹2585.00</td></tr>
+        <tr><td style="font-weight:700;">Total</td><td id="dispTotalAmt" style="font-weight:700;">₹0.00</td></tr>
       </table>
     </div>
   </div>
 
-  <!-- MANDI CHARGES -->
   <div class="card">
     <div class="card-header">🧾 MANDI CHARGES</div>
     <div class="card-body">
@@ -520,7 +580,7 @@
         <input type="checkbox" class="charge-check" id="chkLabour" checked onchange="calculateAll()">
         <span class="charge-name" style="flex:0.8;">Labour @ per bag</span>
         <span id="labourTotalDisplay" style="font-weight:800; min-width:50px;">₹7.16</span>
-        <button type="button" class="details-btn" id="labourDetailsBtn">📋 Details</button>
+        <button type="button" class="details-btn" id="labourDetailsBtn" aria-label="Labour details">📋 Details</button>
         <span class="charge-amount" id="amtLabour">₹0</span>
       </div>
       <div id="labourDetailsPanel" class="labour-details">
@@ -559,7 +619,6 @@
     </div>
   </div>
 
-  <!-- TOTALS -->
   <div class="card">
     <div class="card-body">
       <div class="total-bar"><span>📌 SUB TOTAL (I-Form)</span><span id="subTotalDisplay">₹0.00</span></div>
@@ -571,7 +630,6 @@
     </div>
   </div>
 
-  <!-- BUTTONS -->
   <div class="btn-group">
     <button class="btn btn-pdf" id="btnIForm">📄 I-Form PDF</button>
     <button class="btn btn-pdf2" id="btnJForm">📋 J-Form PDF</button>
@@ -582,15 +640,15 @@
   </div>
 
   <div class="footer-credit">
-    Designed & Developed by <strong>codexyralabs</strong> | 
+    Designed &amp; Developed by <strong>codexyralabs</strong> | 
     📧 <a href="mailto:codexyra.connect@gmail.com">codexyra.connect@gmail.com</a> | 
-    📷 <a href="https://instagram.com/codexyralabs" target="_blank">instagram.com/codexyralabs</a>
+    📷 <a href="https://instagram.com/codexyralabs" target="_blank" rel="noopener noreferrer">instagram.com/codexyralabs</a>
   </div>
 </div>
 
 <div class="toast-msg" id="toast">Generating PDF...</div>
 
-<!-- PDF I-FORM TEMPLATE (dynamic) -->
+<!-- PDF Templates (Full content from previous working version) -->
 <div id="pdfIFormTemplate" class="pdf-template">
   <div class="pdf-page">
     <div class="pdf-title-box">
@@ -604,70 +662,69 @@
         <td style="width:30%; text-align:center;"><img src="logo.png" class="pdf-logo-img" id="pdf1Logo" onerror="this.style.display='none'; this.parentElement.innerHTML='<div style=\'font-size:18px;\'>🌾 AB</div>'"></td>
         <td style="width:70%;">
           <table class="pdf-table">
-            <tr><th colspan="2">Kacha Arhtiya Particulars</th> </tr>
-            <tr><td><strong>Firm Name</strong>: <span id="pdf1_firmName"></span></td><td><strong>Date of Purchase</strong>: <span id="pdf1_date"></span></td> </tr>
-            <tr><td colspan="2"><strong>Address</strong>: <span id="pdf1_address"></span></td> </tr>
-            <tr><td colspan="2"><strong>Contact No.</strong>: <span id="pdf1_contact"></span> | License: <span id="pdf1_license"></span> | GST: <span id="pdf1_gst"></span></td> </tr>
-           </table>
-         </td>
-       </tr>
-     </table>
+            <tr><th colspan="2">Kacha Arhtiya Particulars</th></tr>
+            <tr><td><strong>Firm Name</strong>: <span id="pdf1_firmName"></span></td><td><strong>Date of Purchase</strong>: <span id="pdf1_date"></span></td></tr>
+            <tr><td colspan="2"><strong>Address</strong>: <span id="pdf1_address"></span></td></tr>
+            <tr><td colspan="2"><strong>Contact No.</strong>: <span id="pdf1_contact"></span> | License: <span id="pdf1_license"></span> | GST: <span id="pdf1_gst"></span></td></tr>
+          </table>
+        </td>
+      </tr>
+    </table>
     <div class="section-head">I-Form Particulars</div>
     <table class="pdf-table">
-      <tr><th>Commodity</th><th>Bags</th><th>Weight (Qtl)</th><th>Rate / Qtl</th> </tr>
-      <tr><td id="pdf1_commodity">—</td><td id="pdf1_bags">—</td><td id="pdf1_qtl">—</td><td id="pdf1_rate">—</td> </tr>
-      <tr><td colspan="3" style="text-align:right; font-weight:800;">Total Purchase Amount</td><td id="pdf1_totalAmt">—</td> </tr>
-     </table>
+      <tr><th>Commodity</th><th>Bags</th><th>Weight (Qtl)</th><th>Rate / Qtl</th></tr>
+      <tr><td id="pdf1_commodity">—</td><td id="pdf1_bags">—</td><td id="pdf1_qtl">—</td><td id="pdf1_rate">—</td></tr>
+      <tr><td colspan="3" style="text-align:right; font-weight:800;">Total Purchase Amount</td><td id="pdf1_totalAmt">—</td></tr>
+    </table>
     <div class="section-head">Market Charges</div>
     <table class="pdf-table">
-      <tr><th>Charges</th><th>Rate</th><th>Amount</th> </tr>
-      <tr><td>Commission</td><td id="pdf1_rComm">—</td><td id="pdf1_aComm">—</td> </tr>
-      <tr><td>Filling / Weighing</td><td id="pdf1_rLabour">—</td><td id="pdf1_aLabour">—</td> </tr>
-      <tr><td>Stitching by Machine</td><td id="pdf1_rStitch">—</td><td id="pdf1_aStitch">—</td> </tr>
-      <tr><td>Loading</td><td id="pdf1_rLoad">—</td><td id="pdf1_aLoad">—</td> </tr>
-      <tr><td colspan="2" style="font-weight:800;">Total Charges</td><td id="pdf1_tCharges">—</td> </tr>
-     </table>
+      <tr><th>Charges</th><th>Rate</th><th>Amount</th></tr>
+      <tr><td>Commission</td><td id="pdf1_rComm">—</td><td id="pdf1_aComm">—</td></tr>
+      <tr><td>Filling / Weighing</td><td id="pdf1_rLabour">—</td><td id="pdf1_aLabour">—</td></tr>
+      <tr><td>Stitching by Machine</td><td id="pdf1_rStitch">—</td><td id="pdf1_aStitch">—</td></tr>
+      <tr><td>Loading</td><td id="pdf1_rLoad">—</td><td id="pdf1_aLoad">—</td></tr>
+      <tr><td colspan="2" style="font-weight:800;">Total Charges</td><td id="pdf1_tCharges">—</td></tr>
+    </table>
     <table class="pdf-table">
       <tr><td style="width:50%;"><strong>Sub Total (I-Form): ₹<span id="pdf1_subTotal"></span></strong></td>
         <td style="width:50%;"><strong>Avg Rate / Bag: ₹<span id="pdf1_avgRate"></span></strong></td>
-       </tr>
-     </table>
+      </tr>
+    </table>
     <table class="pdf-table">
-      <tr><td style="height:45px;">Acknowledgement by Buyer</td><td style="text-align:right;">Signature of Kacha Arhtiya</td> </tr>
-     </table>
+      <tr><td style="height:45px;">Acknowledgement by Buyer</td><td style="text-align:right;">Signature of Kacha Arhtiya</td></tr>
+    </table>
   </div>
 </div>
 
-<!-- PDF J-FORM TEMPLATE -->
 <div id="pdfJFormTemplate" class="pdf-template">
   <div class="pdf-page">
     <div class="pdf-title-box"><div class="t2">FORM J (ਜੇ ਫਾਰਮ)</div><div class="t3">Final Payment Bill</div></div>
     <table class="pdf-table">
       <tr>
-        <td style="width:40%; text-align:center;"><img src="logo.png" class="pdf-logo-img" id="pdf2Logo" onerror="this.style.display='none'"> </td>
+        <td style="width:40%; text-align:center;"><img src="logo.png" class="pdf-logo-img" id="pdf2Logo" onerror="this.style.display='none'"></td>
         <td style="width:60%;">
           <table style="width:100%">
-            <tr><td><strong>Firm Name</strong>: <span id="pdf2_firmName"></span></td> </tr>
-            <tr><td><strong>Farmer</strong>: <span id="pdf2_farmer"></span></td> </tr>
-            <tr><td><strong>Crop</strong>: <span id="pdf2_crop"></span></td> </tr>
-            <tr><td><strong>Date</strong>: <span id="pdf2_date"></span></td> </tr>
-           </table>
-         </td>
-       </tr>
-     </table>
+            <tr><td><strong>Firm Name</strong>: <span id="pdf2_firmName"></span></td></tr>
+            <tr><td><strong>Farmer</strong>: <span id="pdf2_farmer"></span></td></tr>
+            <tr><td><strong>Crop</strong>: <span id="pdf2_crop"></span></td></tr>
+            <tr><td><strong>Date</strong>: <span id="pdf2_date"></span></td></tr>
+          </table>
+        </td>
+      </tr>
+    </table>
     <div class="section-head">Payment Details</div>
     <table class="pdf-table">
-      <tr><th>Price / Qtl</th><th>Total Amount</th><th>Labour Deduction</th><th>Final J-Form Total</th> </tr>
-      <tr><td>₹<span id="pdf2_rate"></span></td><td>₹<span id="pdf2_subTotal"></span></td><td>₹<span id="pdf2_aLabour"></span></td><td style="font-weight:800;">₹<span id="pdf2_total"></span></td> </tr>
-     </table>
+      <tr><th>Price / Qtl</th><th>Total Amount</th><th>Labour Deduction</th><th>Final J-Form Total</th></tr>
+      <tr><td>₹<span id="pdf2_rate"></span></td><td>₹<span id="pdf2_subTotal"></span></td><td>₹<span id="pdf2_aLabour"></span></td><td style="font-weight:800;">₹<span id="pdf2_total"></span></td></tr>
+    </table>
     <table class="pdf-table">
       <tr><td style="width:50%;"><strong>Labour Rate</strong>: ₹<span id="pdf2_rLabour"></span> per bag</td>
         <td style="width:50%;"><strong>Average Rate / Bag</strong>: ₹<span id="pdf2_avgRate"></span></td>
-       </tr>
-     </table>
+      </tr>
+    </table>
     <table class="pdf-table">
-      <tr><td style="height:45px; text-align:right;">Signature of Seller / Representative</td> </tr>
-     </table>
+      <tr><td style="height:45px; text-align:right;">Signature of Seller / Representative</td></tr>
+    </table>
   </div>
 </div>
 
@@ -753,7 +810,7 @@
     alert("Reset to default settings");
   });
   
-  // ------------------------- CALCULATOR LOGIC (unchanged) -------------------------
+  // ------------------------- CALCULATOR LOGIC -------------------------
   let currentBagWeight = 50;
   const CROP_PRICES = { "Wheat 2026": 2585, "Paddy": 2389, "Basmati": 3000, "Cotton": 7000 };
   const cropSelect = document.getElementById('cropSelect');
@@ -1012,6 +1069,7 @@
     showToast('Form cleared');
   }
 
+  // Keyboard shortcuts
   window.addEventListener('keydown', (e) => {
     if (e.ctrlKey && e.key === 's') { e.preventDefault(); saveToHistory(); }
     if (e.ctrlKey && e.shiftKey && e.key === 'I') { e.preventDefault(); window.downloadIFormPDF(); }
