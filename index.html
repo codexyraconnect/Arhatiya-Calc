@@ -1,3 +1,5 @@
+<!DOCTYPE html>
+<html lang="en">
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=yes, viewport-fit=cover">
@@ -39,7 +41,29 @@
   <script src="https://cdnjs.cloudflare.com/ajax/libs/html2canvas/1.4.1/html2canvas.min.js"></script>
   <script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf/2.5.1/jspdf.umd.min.js"></script>
   
+  <!-- Structured Data -->
+  <script type="application/ld+json">
+  {
+    "@context": "https://schema.org",
+    "@type": "WebApplication",
+    "name": "Arhatiya Calc",
+    "description": "Free online mandi bill generator for arhtiyas. Create I-Form and J-Form PDFs with auto calculation of commission, labour, stitching, and loading.",
+    "url": "https://arhatiyacalc.netlify.app/",
+    "applicationCategory": "BusinessApplication",
+    "operatingSystem": "All",
+    "offers": {
+      "@type": "Offer",
+      "price": "0",
+      "priceCurrency": "INR"
+    },
+    "creator": {
+      "@type": "Organization",
+      "name": "codexyralabs"
+    },
+    "keywords": "arhatiya calculator, i form, j form, mandi bill, punjab mandi, kacha arhtiya, labour deduction, commission calculator"
+  }
   </script>
+
   <style>
     * { box-sizing: border-box; margin: 0; padding: 0; }
     body {
@@ -72,12 +96,30 @@
       align-items: center;
       gap: 6px;
       flex-wrap: wrap;
-      padding-right: 80px;
+      padding-right: 140px;
     }
-    .settings-btn {
-      position: static;
+    .header-actions {
+      position: absolute;
       top: 12px;
       right: 16px;
+      display: flex;
+      gap: 8px;
+    }
+    .guide-btn {
+      background: #3b82f6;
+      border: none;
+      border-radius: 40px;
+      padding: 8px 16px;
+      font-size: 0.8rem;
+      font-weight: bold;
+      cursor: pointer;
+      font-family: 'Baloo 2', cursive;
+      color: white;
+      text-decoration: none;
+      display: inline-block;
+      box-shadow: 0 2px 6px rgba(0,0,0,0.2);
+    }
+    .settings-btn {
       background: #f97316;
       border: none;
       border-radius: 40px;
@@ -350,7 +392,7 @@
       font-weight: 500;
     }
     .footer-credit a { color: #facc15; text-decoration: none; }
-    /* PDF templates — hidden, fixed width for perfect rendering */
+    /* PDF templates — hidden */
     .pdf-template {
       position: absolute;
       left: -9999px;
@@ -410,46 +452,24 @@
     }
     @media (max-width: 480px) {
       body { padding: 6px 4px 20px; }
-      .shop-name { font-size: 1.4rem; }
+      .shop-name { font-size: 1.4rem; padding-right: 120px; }
       .btn { padding: 12px 4px; font-size: 0.8rem; }
       .charge-name { font-size: 0.8rem; }
       .bag-btn { font-size: 0.75rem; padding: 6px 0; }
+      .header-actions { gap: 4px; }
+      .guide-btn, .settings-btn { padding: 6px 10px; font-size: 0.7rem; }
     }
-    .header-actions {
-  position: absolute;
-  top: 12px;
-  right: 16px;
-  display: flex;
-  gap: 8px;
-}
-.guide-btn {
-  background: #3b82f6;
-  border: none;
-  border-radius: 40px;
-  padding: 8px 16px;
-  font-size: 0.8rem;
-  font-weight: bold;
-  cursor: pointer;
-  font-family: 'Baloo 2', cursive;
-  color: white;
-  text-decoration: none;
-  display: inline-block;
-  box-shadow: 0 2px 6px rgba(0,0,0,0.2);
-}
   </style>
-
-
 </head>
 <body>
 <div class="app-container">
   <div class="shop-header">
     <div class="shop-name"><span id="shopNameDisplay">🌾 Code Xyra Trading</span></div>
-    
     <div class="shop-address" id="shopAddressDisplay"></div>
     <div class="header-actions">
-  <a href="i-form-j-form-guide.html" class="guide-btn" aria-label="Guide">📘 Guide</a>
-  <button class="settings-btn" id="settingsBtn" aria-label="Settings">⚙️ Settings</button>
-</div>
+      <a href="i-form-j-form-guide.html" class="guide-btn" aria-label="Guide">📘 Guide</a>
+      <button class="settings-btn" id="settingsBtn" aria-label="Settings">⚙️ Settings</button>
+    </div>
     <div id="settingsPanel" class="settings-panel">
       <label>Shop Name</label>
       <input type="text" id="shopNameInput" placeholder="Shop Name">
@@ -613,7 +633,7 @@
 
 <div class="toast-msg" id="toast">Generating PDF...</div>
 
-<!-- PDF I-FORM TEMPLATE -->
+<!-- PDF Templates (unchanged) -->
 <div id="pdfIFormTemplate" class="pdf-template">
   <div class="pdf-page">
     <div class="pdf-title-box">
@@ -646,7 +666,6 @@
   </div>
 </div>
 
-<!-- PDF J-FORM TEMPLATE -->
 <div id="pdfJFormTemplate" class="pdf-template">
   <div class="pdf-page">
     <div class="pdf-title-box"><div style="font-weight:800;">FORM J (ਜੇ ਫਾਰਮ)</div><div>Final Payment Bill</div></div>
