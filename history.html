@@ -2,529 +2,332 @@
 <html lang="en">
 <head>
   <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
-  <title>Transaction History - Arhatiya Calc Mandi Bill</title>
-  
-  <!-- SEO Meta Tags -->
-  <meta name="description" content="View and manage all your saved mandi transactions. Search, filter, export CSV, batch download PDFs.">
-  <meta name="keywords" content="mandi history, transaction records, arhtiya history, bill history">
-  <meta name="robots" content="noindex, follow">
-  <link rel="canonical" href="https://arhatiyacalc.netlify.app/history.html">
-  
-  <!-- Open Graph -->
-  <meta property="og:title" content="Transaction History - Arhatiya Calc">
-  <meta property="og:description" content="Manage your saved mandi bills.">
-  <meta property="og:type" content="website">
-  <meta property="og:url" content="https://arhatiyacalc.netlify.app/history.html">
-  
-  <!-- PWA -->
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes, viewport-fit=cover">
+  <title>Transaction History · Arhatiya Calc</title>
+  <meta name="description" content="View, search, export and batch download mandi transaction history. I-Form & J-Form PDFs.">
   <link rel="manifest" href="manifest.json">
   <link rel="icon" type="image/png" href="logo.png">
-  <meta name="theme-color" content="#fde047">
-  
-  <!-- Google tag (gtag.js) -->
-<script async src="https://www.googletagmanager.com/gtag/js?id=G-64Y87Y1H9Q"></script>
-<script>
-  window.dataLayer = window.dataLayer || [];
-  function gtag(){dataLayer.push(arguments);}
-  gtag('js', new Date());
-
-  gtag('config', 'G-64Y87Y1H9Q');
-</script>
-
-
   <link href="https://fonts.googleapis.com/css2?family=Baloo+2:wght@400;500;600;700;800&family=Noto+Sans:wght@400;500;600;700&display=swap" rel="stylesheet">
   <script src="https://cdnjs.cloudflare.com/ajax/libs/html2canvas/1.4.1/html2canvas.min.js"></script>
   <script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf/2.5.1/jspdf.umd.min.js"></script>
   <script src="https://cdnjs.cloudflare.com/ajax/libs/jszip/3.10.1/jszip.min.js"></script>
-  
   <style>
-    * { margin: 0; padding: 0; box-sizing: border-box; }
-    body {
+    *{ margin:0; padding:0; box-sizing:border-box; }
+    body{
       font-family: 'Noto Sans', sans-serif;
       background: #f1f5f9;
-      padding: 20px;
+      padding: 16px 12px;
       color: #0f172a;
     }
-    .container { max-width: 1400px; margin: 0 auto; }
-    .header {
-      background: linear-gradient(145deg, #0f172a, #1e293b);
-      border-radius: 22px;
-      padding: 18px 20px;
-      margin-bottom: 20px;
+    .container{ max-width: 1400px; margin:0 auto; }
+    .header{
+      background: linear-gradient(145deg, #0b1622, #1e293b);
+      border-radius: 28px;
+      padding: 20px 22px;
+      margin-bottom: 22px;
       color: white;
       display: flex;
       justify-content: space-between;
       align-items: center;
       flex-wrap: wrap;
-      gap: 12px;
+      gap: 14px;
     }
-    .header h1 { font-family: 'Baloo 2', cursive; font-size: 1.6rem; color: #fde047; }
-    .btn-back, .btn-clear, .btn-csv, .btn-batch {
+    .header h1{ font-family: 'Baloo 2', cursive; font-size: 1.7rem; color: #fde047; }
+    .btn-back, .btn-clear, .btn-csv, .btn-batch{
       background: #f97316;
       border: none;
-      padding: 8px 16px;
-      border-radius: 40px;
+      padding: 10px 18px;
+      border-radius: 60px;
       font-weight: bold;
       color: #0f172a;
       cursor: pointer;
       text-decoration: none;
       font-family: 'Baloo 2', cursive;
       margin-left: 8px;
+      font-size: 0.9rem;
+      box-shadow: 0 4px 8px rgba(0,0,0,0.1);
     }
-    .btn-clear { background: #dc2626; color: white; }
-    .btn-csv { background: #16a34a; color: white; }
-    .btn-batch { background: #2563eb; color: white; }
-    .search-bar {
+    .btn-clear{ background: #dc2626; color: white; }
+    .btn-csv{ background: #16a34a; color: white; }
+    .btn-batch{ background: #2563eb; color: white; }
+    .search-bar{
       background: white;
-      border-radius: 18px;
-      padding: 12px 16px;
+      border-radius: 24px;
+      padding: 14px 18px;
       margin-bottom: 20px;
       display: flex;
       gap: 12px;
       flex-wrap: wrap;
       align-items: center;
+      box-shadow: 0 4px 12px rgba(0,0,0,0.03);
     }
-    .search-bar input {
+    .search-bar input{
       flex: 1;
-      padding: 10px 14px;
-      border: 1.5px solid #d1d5db;
-      border-radius: 30px;
-      font-size: 0.9rem;
+      padding: 12px 18px;
+      border: 1.8px solid #d1d5db;
+      border-radius: 60px;
+      font-size: 0.95rem;
     }
-    .stats {
+    .stats{
       background: white;
-      border-radius: 18px;
-      padding: 15px 20px;
-      margin-bottom: 20px;
+      border-radius: 24px;
+      padding: 18px 22px;
+      margin-bottom: 22px;
       display: flex;
       justify-content: space-between;
       flex-wrap: wrap;
       gap: 15px;
     }
-    .stat-card {
+    .stat-card{
       background: #f8fafc;
-      padding: 10px 18px;
-      border-radius: 14px;
-      text-align: center;
-    }
-    .stat-card span:first-child { font-size: 0.75rem; color: #475569; }
-    .stat-card span:last-child { font-size: 1.4rem; font-weight: 800; display: block; }
-    .table-wrapper { overflow-x: auto; background: white; border-radius: 20px; box-shadow: 0 4px 12px rgba(0,0,0,0.05); }
-    table { width: 100%; border-collapse: collapse; font-size: 0.8rem; min-width: 700px; }
-    th, td { padding: 12px 10px; text-align: left; border-bottom: 1px solid #e2e8f0; vertical-align: middle; }
-    th { background: #f1f5f9; font-weight: 800; position: sticky; top: 0; }
-    tr:hover { background: #fefce8; }
-    .action-buttons { display: flex; gap: 6px; flex-wrap: wrap; }
-    .btn-pdf-small, .btn-pdf-small-j, .delete-btn {
-      border: none;
-      padding: 4px 10px;
+      padding: 12px 22px;
       border-radius: 20px;
-      cursor: pointer;
-      font-size: 0.7rem;
-      font-weight: bold;
+      text-align: center;
+      flex:1;
     }
-    .btn-pdf-small { background: #b45309; color: white; }
-    .btn-pdf-small-j { background: #047857; color: white; }
-    .delete-btn { background: #ef4444; color: white; }
-    .empty-msg { text-align: center; padding: 40px; color: #64748b; }
-    @media (max-width: 700px) {
-      body { padding: 12px; }
-      .header { flex-direction: column; align-items: stretch; text-align: center; }
-      .header-buttons { justify-content: center; }
-      .stats { grid-template-columns: 1fr 1fr; gap: 10px; }
-      th, td { padding: 8px 6px; font-size: 0.7rem; }
-    }
-    @media (max-width: 480px) {
-      .stats { grid-template-columns: 1fr; }
-      .btn-pdf-small, .delete-btn { font-size: 0.65rem; padding: 3px 8px; }
-    }
-    /* PDF templates (same as index) */
-    .pdf-template {
-      position: absolute;
-      left: -9999px;
-      top: 0;
-      width: 820px;
+    .stat-card span:first-child{ font-size:0.8rem; color:#475569; }
+    .stat-card span:last-child{ font-size:1.7rem; font-weight:800; display:block; }
+    .table-wrapper{
+      overflow-x: auto;
       background: white;
-      font-family: 'Noto Sans', sans-serif;
+      border-radius: 26px;
+      box-shadow: 0 8px 20px rgba(0,0,0,0.05);
     }
-    .pdf-page { background: white; padding: 18px; width: 100%; }
-    .pdf-title-box { text-align: center; border: 1.8px solid #000; padding: 8px 10px; background: white; }
-    .pdf-table { width: 100%; border-collapse: collapse; background: white; }
-    .pdf-table td, .pdf-table th { border: 1px solid #000; padding: 6px 7px; font-size: 11px; color: black; background: white; }
-    .pdf-table th { background: #f0f0f0; font-weight: 800; text-align: center; }
-    .section-head { background: #f5f5f5; font-weight: 800; text-align: center; padding: 6px; border: 1px solid #000; border-top: none; }
-    .pdf-logo-img { max-width: 80px; height: auto; display: block; margin: 0 auto; }
+    table{ width:100%; border-collapse: collapse; font-size:0.85rem; min-width:800px; }
+    th, td{ padding: 14px 12px; text-align: left; border-bottom:1px solid #e2e8f0; vertical-align: middle; }
+    th{ background:#f1f5f9; font-weight:800; position:sticky; top:0; }
+    tr:hover{ background:#fefce8; }
+    .action-buttons{ display:flex; gap:8px; flex-wrap:wrap; }
+    .btn-pdf-small, .btn-pdf-small-j, .delete-btn{
+      border:none; padding:6px 12px; border-radius:30px; cursor:pointer; font-size:0.75rem; font-weight:bold;
+    }
+    .btn-pdf-small{ background:#b45309; color:white; }
+    .btn-pdf-small-j{ background:#047857; color:white; }
+    .delete-btn{ background:#ef4444; color:white; }
+    .empty-msg{ text-align:center; padding:40px; color:#64748b; }
+    @media (max-width:700px){
+      body{ padding:10px 6px; }
+      .header{ flex-direction:column; align-items:stretch; text-align:center; }
+      .btn-back, .btn-csv, .btn-batch{ margin:5px; }
+      th, td{ padding:10px 8px; font-size:0.75rem; }
+    }
+    /* PDF templates */
+    .pdf-template{
+      position:absolute; left:-9999px; top:0; width:860px; background:white; font-family:'Noto Sans',sans-serif;
+    }
+    .pdf-page{ background:white; padding:22px 24px; width:100%; }
+    .pdf-title-box{ text-align:center; border:2px solid #000; padding:10px; background:white; }
+    .pdf-table{ width:100%; border-collapse:collapse; background:white; }
+    .pdf-table td, .pdf-table th{ border:1.5px solid #111; padding:8px 10px; font-size:12px; color:black; background:white; }
+    .pdf-table th{ background:#e6e6e6; font-weight:800; }
+    .section-head{ background:#e2e8f0; font-weight:800; text-align:center; padding:8px; border:1.5px solid #000; border-top:none; }
+    .pdf-logo-img{ max-width:90px; height:auto; display:block; margin:0 auto; }
   </style>
 </head>
 <body>
 <div class="container">
   <div class="header">
-    <h1>📜 Farmer Transaction History</h1>
-    <div class="header-buttons">
-      <a href="index.html" class="btn-back">← Back</a>
+    <h1>📜 Transaction History</h1>
+    <div style="display:flex; flex-wrap:wrap; gap:6px;">
+      <a href="index.html" class="btn-back">← Calculator</a>
       <button class="btn-csv" id="exportCsvBtn">📎 Export CSV</button>
-      <button class="btn-batch" id="batchIFormBtn">📦 Batch I-Forms</button>
-      <button class="btn-batch" id="batchJFormBtn">📦 Batch J-Forms</button>
+      <button class="btn-batch" id="batchIFormBtn">📦 I‑Forms ZIP</button>
+      <button class="btn-batch" id="batchJFormBtn">📦 J‑Forms ZIP</button>
       <button class="btn-clear" id="clearAllBtn">🗑️ Clear All</button>
     </div>
   </div>
   <div class="search-bar">
-    <input type="text" id="searchInput" placeholder="🔍 Search by farmer name or crop...">
+    <input type="text" id="searchInput" placeholder="🔍 Search by farmer or crop...">
   </div>
   <div class="stats" id="statsPanel">
     <div class="stat-card"><span>Total Transactions</span><span id="totalCount">0</span></div>
-    <div class="stat-card"><span>Total Farmers</span><span id="uniqueFarmers">0</span></div>
-    <div class="stat-card"><span>Total J-Form Amount</span><span id="totalJAmount">₹0</span></div>
+    <div class="stat-card"><span>Unique Farmers</span><span id="uniqueFarmers">0</span></div>
+    <div class="stat-card"><span>Total J‑Form ₹</span><span id="totalJAmount">₹0</span></div>
   </div>
   <div class="table-wrapper">
     <table id="historyTable">
-      <thead>
-        <tr><th style="width:30px"><input type="checkbox" id="selectAllCheckbox"></th><th>Date & Time</th><th>Farmer Name</th><th>Crop</th><th>Bags</th><th>Weight (Qtl)</th><th>Total Amount (₹)</th><th>Labour Deduction (₹)</th><th>J-Form Total (₹)</th><th>Actions</th></tr>
-      </thead>
-      <tbody id="historyBody">
-        <tr><td colspan="10" class="empty-msg">No records found. Save from calculator.</td></tr>
-      </tbody>
+      <thead><tr><th style="width:30px"><input type="checkbox" id="selectAllCheckbox"></th><th>Date & Time</th><th>Farmer</th><th>Crop</th><th>Bags</th><th>Weight(Qtl)</th><th>Total ₹</th><th>Labour ₹</th><th>J‑Form ₹</th><th>Actions</th></tr></thead>
+      <tbody id="historyBody"><tr><td colspan="10" class="empty-msg">No records. Save from calculator.</td></tr></tbody>
     </table>
   </div>
 </div>
 
-<!-- PDF I-FORM TEMPLATE -->
-<div id="pdfIFormTemplate" class="pdf-template">
-  <div class="pdf-page">
-    <div class="pdf-title-box">
-      <div class="t1">FORM I (ਆਈ ਫਾਰਮ)</div>
-      <div class="t1">[See Rule 24(12),(13) and 16-F(2)(ix)]</div>
-      <div class="t2">Bill of Kacha Arhtiya</div>
-      <div class="t3">I-Form – Sale Bill</div>
-    </div>
-    <table class="pdf-table">
-      <tr><td style="width:30%; text-align:center;"><img src="logo.png" class="pdf-logo-img" onerror="this.style.display='none'; this.parentElement.innerHTML='<div style=\'font-size:18px;\'>🌾 AB</div>'"></td>
-        <td style="width:70%;"><table class="pdf-table"><tr><th colspan="2">Kacha Arhtiya Particulars</th></tr>
-        <tr><td><strong>Firm Name</strong>: <span id="pdf1_firmName"></span></td><td><strong>Date of Purchase</strong>: <span id="pdf1_date"></span></td></tr>
-        <tr><td colspan="2"><strong>Address</strong>: <span id="pdf1_address"></span></td></tr>
-        <tr><td colspan="2"><strong>Contact No.</strong>: <span id="pdf1_contact"></span> | License: <span id="pdf1_license"></span> | GST: <span id="pdf1_gst"></span></td></tr>
-        <table></td>
-      </tr>
-    </table>
-    <div class="section-head">I-Form Particulars</div>
-    <table class="pdf-table"><tr><th>Commodity</th><th>Bags</th><th>Weight (Qtl)</th><th>Rate / Qtl</th></tr>
-    <tr><td id="pdf1_commodity">—</td><td id="pdf1_bags">—</td><td id="pdf1_qtl">—</td><td id="pdf1_rate">—</td></tr>
-    <tr><td colspan="3" style="text-align:right; font-weight:800;">Total Purchase Amount</td><td id="pdf1_totalAmt">—</td></tr>
-    </table>
-    <div class="section-head">Market Charges</div>
-    <table class="pdf-table"><tr><th>Charges</th><th>Rate</th><th>Amount</th></tr>
-    <tr><td>Commission</td><td id="pdf1_rComm">—</td><td id="pdf1_aComm">—</td></tr>
-    <tr><td>Filling / Weighing</td><td id="pdf1_rLabour">—</td><td id="pdf1_aLabour">—</td></tr>
-    <tr><td>Stitching by Machine</td><td id="pdf1_rStitch">—</td><td id="pdf1_aStitch">—</td></tr>
-    <tr><td>Loading</td><td id="pdf1_rLoad">—</td><td id="pdf1_aLoad">—</td></tr>
-    <tr><td colspan="2" style="font-weight:800;">Total Charges</td><td id="pdf1_tCharges">—</td></tr>
-    </table>
-    <table class="pdf-table"><tr><td style="width:50%;"><strong>Sub Total: ₹<span id="pdf1_subTotal"></span></strong></td>
-    <td style="width:50%;"><strong>Avg Rate / Bag: ₹<span id="pdf1_avgRate"></span></strong></td></tr>
-    </table>
-    <table class="pdf-table"><tr><td style="height:45px;">Acknowledgement by Buyer</td><td style="text-align:right;">Signature of Kacha Arhtiya</td></tr>
-    </table>
-  </div>
-</div>
+<!-- PDF Templates (identical to main) -->
+<div id="pdfIFormTemplate" class="pdf-template"><div class="pdf-page">
+  <div class="pdf-title-box"><div style="font-weight:800;">FORM I (ਆਈ ਫਾਰਮ)</div><div>Bill of Kacha Arhtiya</div></div>
+  <table class="pdf-table"><tr><td style="width:30%; text-align:center;"><img src="logo.png" class="pdf-logo-img" id="pdf1Logo" onerror="this.style.display='none'; this.parentElement.innerHTML='🌾 AB';"></td>
+  <td><table class="pdf-table"><tr><th colspan="2">Kacha Arhtiya Particulars</th></tr>
+  <tr><td><strong>Firm</strong>: <span id="pdf1_firmName"></span></td><td><strong>Date</strong>: <span id="pdf1_date"></span></td></tr>
+  <tr><td colspan="2"><strong>Address</strong>: <span id="pdf1_address"></span></td></tr>
+  <tr><td colspan="2"><strong>Contact</strong>: <span id="pdf1_contact"></span> | Lic: <span id="pdf1_license"></span> | GST: <span id="pdf1_gst"></span></td></tr></table></td></tr></table>
+  <div class="section-head">I-Form Particulars</div>
+  <table class="pdf-table"><tr><th>Commodity</th><th>Bags</th><th>Weight(Qtl)</th><th>Rate/Qtl</th></tr>
+  <tr><td id="pdf1_commodity"></td><td id="pdf1_bags"></td><td id="pdf1_qtl"></td><td id="pdf1_rate"></td></tr>
+  <tr><td colspan="3" style="text-align:right;">Total</td><td id="pdf1_totalAmt"></td></tr></table>
+  <div class="section-head">Market Charges</div>
+  <table class="pdf-table"><tr><th>Charges</th><th>Rate</th><th>Amount</th></tr>
+  <tr><td>Commission</td><td id="pdf1_rComm"></td><td id="pdf1_aComm"></td></tr>
+  <tr><td>Filling/Weighing</td><td id="pdf1_rLabour"></td><td id="pdf1_aLabour"></td></tr>
+  <tr><td>Stitching</td><td id="pdf1_rStitch"></td><td id="pdf1_aStitch"></td></tr>
+  <tr><td>Loading</td><td id="pdf1_rLoad"></td><td id="pdf1_aLoad"></td></tr>
+  <tr><td colspan="2">Total Charges</td><td id="pdf1_tCharges"></td></tr></table>
+  <table class="pdf-table"><tr><td><strong>Sub Total: ₹<span id="pdf1_subTotal"></span></strong></td><td><strong>Avg/Bag: ₹<span id="pdf1_avgRate"></span></strong></td></tr></table>
+  <table class="pdf-table"><tr><td style="height:45px;">Buyer Sign</td><td style="text-align:right;">Arhtiya Sign</td></tr></table>
+</div></div>
 
-<!-- PDF J-FORM TEMPLATE -->
-<div id="pdfJFormTemplate" class="pdf-template">
-  <div class="pdf-page">
-    <div class="pdf-title-box"><div class="t2">FORM J (ਜੇ ਫਾਰਮ)</div><div class="t3">Final Payment Bill</div></div>
-    <table class="pdf-table">
-      <tr><td style="width:40%; text-align:center;"><img src="logo.png" class="pdf-logo-img" onerror="this.style.display='none'"></td>
-      <td style="width:60%;"><table style="width:100%">
-        <tr><td><strong>Firm Name</strong>: <span id="pdf2_firmName"></span></td></tr>
-        <tr><td><strong>Farmer</strong>: <span id="pdf2_farmer"></span></td></tr>
-        <tr><td><strong>Crop</strong>: <span id="pdf2_crop"></span></td></tr>
-        <tr><td><strong>Date</strong>: <span id="pdf2_date"></span></td></tr>
-       </table></td>
-      </tr>
-    </table>
-    <div class="section-head">Payment Details</div>
-    <table class="pdf-table">
-      <tr><th>Price / Qtl</th><th>Total Amount</th><th>Labour Deduction</th><th>Final J-Form Total</th></tr>
-      <tr><td>₹<span id="pdf2_rate"></span></td><td>₹<span id="pdf2_subTotal"></span></td><td>₹<span id="pdf2_aLabour"></span></td><td style="font-weight:800;">₹<span id="pdf2_total"></span></td></tr>
-    </table>
-    <table class="pdf-table">
-      <tr><td style="width:50%;"><strong>Labour Rate</strong>: ₹<span id="pdf2_rLabour"></span> per bag</td>
-      <td style="width:50%;"><strong>Average Rate / Bag</strong>: ₹<span id="pdf2_avgRate"></span></td></tr>
-    </table>
-    <table class="pdf-table">
-      <tr><td style="height:45px; text-align:right;">Signature of Seller / Representative</td></tr>
-    </table>
-  </div>
-</div>
+<div id="pdfJFormTemplate" class="pdf-template"><div class="pdf-page">
+  <div class="pdf-title-box"><div style="font-weight:800;">FORM J (ਜੇ ਫਾਰਮ)</div><div>Final Payment Bill</div></div>
+  <table class="pdf-table"><tr><td style="width:40%; text-align:center;"><img src="logo.png" class="pdf-logo-img" id="pdf2Logo" onerror="this.style.display='none';"></td>
+  <td><table><tr><td><strong>Firm</strong>: <span id="pdf2_firmName"></span></td></tr><tr><td><strong>Farmer</strong>: <span id="pdf2_farmer"></span></td></tr>
+  <tr><td><strong>Crop</strong>: <span id="pdf2_crop"></span></td></tr><tr><td><strong>Date</strong>: <span id="pdf2_date"></span></td></tr></table></td></tr></table>
+  <div class="section-head">Transaction Summary</div>
+  <table class="pdf-table"><tr><th>Bags</th><th>Weight(Qtl)</th><th>Price/Qtl</th><th>Total</th></tr>
+  <tr><td id="pdf2_bags"></td><td id="pdf2_qtl"></td><td>₹<span id="pdf2_rate"></span></td><td>₹<span id="pdf2_subTotal"></span></td></tr></table>
+  <div class="section-head">Payment</div>
+  <table class="pdf-table"><tr><th>Labour Deduction</th><th>J‑Form Total</th></tr>
+  <tr><td>₹<span id="pdf2_aLabour"></span></td><td style="font-weight:800;">₹<span id="pdf2_total"></span></td></tr></table>
+  <table class="pdf-table"><tr><td><strong>Labour Rate</strong>: ₹<span id="pdf2_rLabour"></span>/bag</td><td><strong>Avg/Bag</strong>: ₹<span id="pdf2_avgRate"></span></td></tr></table>
+  <table class="pdf-table"><tr><td style="height:45px; text-align:right;">Seller Signature</td></tr></table>
+</div></div>
 
 <script>
-  let allRecords = [];
-  let filteredRecords = [];
-
-  function loadHistory() {
-    const stored = localStorage.getItem('mandiHistory');
-    allRecords = stored ? JSON.parse(stored) : [];
-    applyFilter();
-  }
-
-  function applyFilter() {
-    const searchTerm = document.getElementById('searchInput').value.toLowerCase();
-    filteredRecords = allRecords.filter(r => 
-      r.farmer.toLowerCase().includes(searchTerm) || 
-      r.crop.toLowerCase().includes(searchTerm)
-    );
-    renderTable();
-  }
-
-  function renderTable() {
-    const tbody = document.getElementById('historyBody');
-    if (filteredRecords.length === 0) {
-      tbody.innerHTML = '<tr><td colspan="10" class="empty-msg">No matching records.</td></tr>';
+  (function(){
+    let allRecords = [];
+    function loadHistory(){
+      const stored = localStorage.getItem('mandiHistory');
+      allRecords = stored ? JSON.parse(stored) : [];
+      applyFilter();
+    }
+    function applyFilter(){
+      const term = document.getElementById('searchInput').value.toLowerCase();
+      const filtered = allRecords.filter(r=> r.farmer.toLowerCase().includes(term) || r.crop.toLowerCase().includes(term));
+      renderTable(filtered);
+    }
+    function renderTable(records){
+      const tbody = document.getElementById('historyBody');
+      if(!records.length){ tbody.innerHTML='<tr><td colspan="10" class="empty-msg">No matching records.</td></tr>'; updateStats(); return; }
+      let html='';
+      records.forEach(r=>{
+        html+=`<tr><td><input type="checkbox" class="row-select" data-id="${r.id}"></td>
+        <td>${escapeHtml(r.timestamp)}</td><td>${escapeHtml(r.farmer)}</td><td>${escapeHtml(r.crop)}</td>
+        <td>${r.bags} + ${r.loose}kg</td><td>${r.totalQtl.toFixed(2)}</td><td>₹${r.totalAmount.toFixed(2)}</td>
+        <td>₹${r.labourDeduction.toFixed(2)}</td><td><strong>₹${r.jFormTotal.toFixed(2)}</strong></td>
+        <td class="action-buttons"><button class="btn-pdf-small" data-id="${r.id}" data-type="I">I‑Form</button>
+        <button class="btn-pdf-small-j" data-id="${r.id}" data-type="J">J‑Form</button>
+        <button class="delete-btn" data-id="${r.id}">Del</button></td></tr>`;
+      });
+      tbody.innerHTML=html;
       updateStats();
-      return;
+      document.querySelectorAll('.btn-pdf-small, .btn-pdf-small-j').forEach(b=>b.addEventListener('click', async(e)=>{
+        const id=parseInt(b.dataset.id); const type=b.dataset.type; const rec=allRecords.find(r=>r.id===id);
+        if(rec) await generateSinglePDF(rec,type);
+      }));
+      document.querySelectorAll('.delete-btn').forEach(b=>b.addEventListener('click',()=>{
+        const id=parseInt(b.dataset.id); allRecords=allRecords.filter(r=>r.id!==id);
+        localStorage.setItem('mandiHistory',JSON.stringify(allRecords)); loadHistory();
+      }));
+      document.getElementById('selectAllCheckbox').onchange=(e)=>{
+        document.querySelectorAll('.row-select').forEach(cb=>cb.checked=e.target.checked);
+      };
     }
-    let html = '';
-    filteredRecords.forEach(record => {
-      html += `<tr>
-        <td><input type="checkbox" class="row-select" data-id="${record.id}"></td>
-        <td>${escapeHtml(record.timestamp)}</td><td>${escapeHtml(record.farmer)}</td><td>${escapeHtml(record.crop)}</td>
-        <td>${record.bags} bags + ${record.loose} kg</td><td>${record.totalQtl.toFixed(2)}</td>
-        <td>₹${record.totalAmount.toFixed(2)}</td><td>₹${record.labourDeduction.toFixed(2)}</td>
-        <td><strong>₹${record.jFormTotal.toFixed(2)}</strong></td>
-        <td class="action-buttons">
-          <button class="btn-pdf-small" data-id="${record.id}" data-type="I">📄 I-Form</button>
-          <button class="btn-pdf-small btn-pdf-small-j" data-id="${record.id}" data-type="J">📋 J-Form</button>
-          <button class="delete-btn" data-id="${record.id}">Delete</button>
-         </td>
-      </td>`;
-    });
-    tbody.innerHTML = html;
-    updateStats();
-
-    document.querySelectorAll('.btn-pdf-small').forEach(btn => {
-      btn.addEventListener('click', async (e) => {
-        const id = parseInt(btn.getAttribute('data-id'));
-        const type = btn.getAttribute('data-type');
-        const record = allRecords.find(r => r.id === id);
-        if (record) await generateSinglePDF(record, type);
-      });
-    });
-    document.querySelectorAll('.delete-btn').forEach(btn => {
-      btn.addEventListener('click', () => {
-        const id = parseInt(btn.getAttribute('data-id'));
-        allRecords = allRecords.filter(r => r.id !== id);
-        localStorage.setItem('mandiHistory', JSON.stringify(allRecords));
-        loadHistory();
-      });
-    });
-    document.getElementById('selectAllCheckbox').addEventListener('change', (e) => {
-      document.querySelectorAll('.row-select').forEach(cb => cb.checked = e.target.checked);
-    });
-  }
-
-  function updateStats() {
-    document.getElementById('totalCount').innerText = allRecords.length;
-    document.getElementById('uniqueFarmers').innerText = new Set(allRecords.map(r => r.farmer)).size;
-    const totalJ = allRecords.reduce((sum, r) => sum + r.jFormTotal, 0);
-    document.getElementById('totalJAmount').innerHTML = `₹${totalJ.toFixed(2)}`;
-  }
-
-  async function generateSinglePDF(record, type) {
-    const templateId = type === 'I' ? 'pdfIFormTemplate' : 'pdfJFormTemplate';
-    const original = document.getElementById(templateId);
-    if (!original) return;
-    const clone = original.cloneNode(true);
-    clone.style.position = 'fixed';
-    clone.style.left = '0';
-    clone.style.top = '0';
-    clone.style.width = '820px';
-    clone.style.backgroundColor = '#ffffff';
-    clone.style.zIndex = '99999';
-    clone.style.display = 'block';
-    clone.querySelectorAll('*').forEach(el => { if (el.style) { el.style.color = '#000000'; el.style.backgroundColor = '#ffffff'; } });
-    
-    const settings = JSON.parse(localStorage.getItem('arhatiyaShopSettings') || '{"shopName":"Code Xyra Trading","address1":"","address2":"","contact":"","license":"","gst":""}');
-    const d = new Date(record.timestamp).toLocaleDateString('en-IN');
-    
-    if (type === 'I') {
-      clone.querySelector('#pdf1_firmName').innerText = settings.shopName || "Code Xyra Trading";
-      clone.querySelector('#pdf1_date').innerText = d;
-      clone.querySelector('#pdf1_address').innerText = (settings.address1 ? settings.address1 + ", " : "") + (settings.address2 || "");
-      clone.querySelector('#pdf1_contact').innerText = settings.contact || "";
-      clone.querySelector('#pdf1_license').innerText = settings.license || "";
-      clone.querySelector('#pdf1_gst').innerText = settings.gst || "";
-      clone.querySelector('#pdf1_commodity').innerText = record.crop + ' (' + record.bagWeight + 'kg)';
-      clone.querySelector('#pdf1_bags').innerText = record.bags + ' bags + ' + record.loose + ' kg';
-      clone.querySelector('#pdf1_qtl').innerText = record.totalQtl.toFixed(2) + ' Qtl';
-      clone.querySelector('#pdf1_rate').innerText = '₹' + record.price.toFixed(2);
-      clone.querySelector('#pdf1_totalAmt').innerText = '₹' + record.totalAmount.toFixed(2);
-      const labourRate = record.labourRate || 7.16;
-      const rComm = 2.5, rStitch = 1.71, rLoad = 3.15;
-      const commAmt = record.totalAmount * rComm / 100;
-      const labourAmt = record.labourDeduction;
-      const stitchAmt = rStitch * record.bags;
-      const loadAmt = rLoad * record.bags;
-      const totalCharges = commAmt + labourAmt + stitchAmt + loadAmt;
-      const subTotal = record.totalAmount + totalCharges;
-      const avgRate = record.bags > 0 ? subTotal / record.bags : 0;
-      clone.querySelector('#pdf1_rComm').innerText = rComm + '%';
-      clone.querySelector('#pdf1_aComm').innerText = '₹' + commAmt.toFixed(2);
-      clone.querySelector('#pdf1_rLabour').innerText = '₹' + labourRate.toFixed(2) + '/bag';
-      clone.querySelector('#pdf1_aLabour').innerText = '₹' + labourAmt.toFixed(2);
-      clone.querySelector('#pdf1_rStitch').innerText = '₹' + rStitch + '/bag';
-      clone.querySelector('#pdf1_aStitch').innerText = '₹' + stitchAmt.toFixed(2);
-      clone.querySelector('#pdf1_rLoad').innerText = '₹' + rLoad + '/bag';
-      clone.querySelector('#pdf1_aLoad').innerText = '₹' + loadAmt.toFixed(2);
-      clone.querySelector('#pdf1_tCharges').innerText = '₹' + totalCharges.toFixed(2);
-      clone.querySelector('#pdf1_subTotal').innerText = subTotal.toFixed(2);
-      clone.querySelector('#pdf1_avgRate').innerText = avgRate.toFixed(2);
-    } else {
-      clone.querySelector('#pdf2_firmName').innerText = settings.shopName || "Code Xyra Trading";
-      clone.querySelector('#pdf2_date').innerText = d;
-      clone.querySelector('#pdf2_farmer').innerText = record.farmer;
-      clone.querySelector('#pdf2_crop').innerText = record.crop;
-      clone.querySelector('#pdf2_bags').innerText = record.bags + ' bags + ' + record.loose + ' kg';
-      clone.querySelector('#pdf2_qtl').innerText = record.totalQtl.toFixed(2) + ' Qtl';
-      clone.querySelector('#pdf2_rate').innerText = record.price.toFixed(2);
-      clone.querySelector('#pdf2_subTotal').innerText = record.totalAmount.toFixed(2);
-      const labourRate = record.labourRate || 7.16;
-      clone.querySelector('#pdf2_rLabour').innerText = labourRate.toFixed(2);
-      clone.querySelector('#pdf2_aLabour').innerText = record.labourDeduction.toFixed(2);
-      clone.querySelector('#pdf2_total').innerText = record.jFormTotal.toFixed(2);
-      const jAvg = record.bags > 0 ? record.jFormTotal / record.bags : 0;
-      clone.querySelector('#pdf2_avgRate').innerText = jAvg.toFixed(2);
+    function updateStats(){
+      document.getElementById('totalCount').innerText=allRecords.length;
+      document.getElementById('uniqueFarmers').innerText=new Set(allRecords.map(r=>r.farmer)).size;
+      const totalJ=allRecords.reduce((s,r)=>s+r.jFormTotal,0);
+      document.getElementById('totalJAmount').innerHTML=`₹${totalJ.toFixed(2)}`;
     }
-    document.body.appendChild(clone);
-    await new Promise(r => setTimeout(r, 400));
-    try {
-      const canvas = await html2canvas(clone, { scale: 3, backgroundColor: '#ffffff' });
-      const imgData = canvas.toDataURL('image/png');
-      const { jsPDF } = window.jspdf;
-      const pdf = new jsPDF({ unit: 'mm', format: 'a4', orientation: 'portrait' });
-      const imgWidth = 210, pageHeight = 297;
-      const imgHeight = (canvas.height * imgWidth) / canvas.width;
-      let heightLeft = imgHeight, position = 0;
-      pdf.addImage(imgData, 'PNG', 0, position, imgWidth, imgHeight);
-      heightLeft -= pageHeight;
-      while (heightLeft > 0) {
-        position = heightLeft - imgHeight;
-        pdf.addPage();
-        pdf.addImage(imgData, 'PNG', 0, position, imgWidth, imgHeight);
-        heightLeft -= pageHeight;
-      }
-      pdf.save(`${type}-Form_${record.farmer.replace(/\s/g, '_')}_${record.crop}.pdf`);
-      alert(`✅ ${type}-Form saved`);
-    } catch(err) { alert('PDF failed'); }
-    finally { setTimeout(() => clone.remove(), 300); }
-  }
+    function escapeHtml(t){ return String(t).replace(/[&<>]/g, c=> ({'&':'&amp;','<':'&lt;','>':'&gt;'})[c]); }
 
-  async function batchGenerate(type) {
-    const selectedIds = Array.from(document.querySelectorAll('.row-select:checked')).map(cb => parseInt(cb.getAttribute('data-id')));
-    if (selectedIds.length === 0) { alert('Select at least one record'); return; }
-    const records = allRecords.filter(r => selectedIds.includes(r.id));
-    const zip = new JSZip();
-    const settings = JSON.parse(localStorage.getItem('arhatiyaShopSettings') || '{"shopName":"Code Xyra Trading","address1":"","address2":"","contact":"","license":"","gst":""}');
-    for (let i = 0; i < records.length; i++) {
-      const record = records[i];
-      const templateId = type === 'I' ? 'pdfIFormTemplate' : 'pdfJFormTemplate';
-      const original = document.getElementById(templateId);
-      const clone = original.cloneNode(true);
-      clone.style.position = 'fixed'; clone.style.left = '-9999px'; clone.style.top = '0'; clone.style.width = '820px';
-      clone.style.backgroundColor = '#ffffff';
+    async function generateSinglePDF(record, type){
+      const templateId = type==='I'?'pdfIFormTemplate':'pdfJFormTemplate';
+      const clone = document.getElementById(templateId).cloneNode(true);
+      clone.style.position='fixed'; clone.style.left='0'; clone.style.top='0'; clone.style.width='860px'; clone.style.zIndex='99999';
+      clone.querySelectorAll('*').forEach(el=>{ if(el.style){ el.style.color='#000'; el.style.backgroundColor='#fff'; }});
+      const settings = JSON.parse(localStorage.getItem('arhatiyaShopSettings')||'{"shopName":"Code Xyra Trading"}');
       const d = new Date(record.timestamp).toLocaleDateString('en-IN');
-      if (type === 'I') {
-        clone.querySelector('#pdf1_firmName').innerText = settings.shopName || "Code Xyra Trading";
-        clone.querySelector('#pdf1_date').innerText = d;
-        clone.querySelector('#pdf1_address').innerText = (settings.address1 ? settings.address1 + ", " : "") + (settings.address2 || "");
-        clone.querySelector('#pdf1_contact').innerText = settings.contact || "";
-        clone.querySelector('#pdf1_license').innerText = settings.license || "";
-        clone.querySelector('#pdf1_gst').innerText = settings.gst || "";
-        clone.querySelector('#pdf1_commodity').innerText = record.crop + ' (' + record.bagWeight + 'kg)';
-        clone.querySelector('#pdf1_bags').innerText = record.bags + ' bags + ' + record.loose + ' kg';
-        clone.querySelector('#pdf1_qtl').innerText = record.totalQtl.toFixed(2) + ' Qtl';
-        clone.querySelector('#pdf1_rate').innerText = '₹' + record.price.toFixed(2);
-        clone.querySelector('#pdf1_totalAmt').innerText = '₹' + record.totalAmount.toFixed(2);
-        const labourRate = record.labourRate || 7.16;
-        const rComm = 2.5, rStitch = 1.71, rLoad = 3.15;
-        const commAmt = record.totalAmount * rComm / 100;
-        const labourAmt = record.labourDeduction;
-        const stitchAmt = rStitch * record.bags;
-        const loadAmt = rLoad * record.bags;
-        const totalCharges = commAmt + labourAmt + stitchAmt + loadAmt;
-        const subTotal = record.totalAmount + totalCharges;
-        const avgRate = record.bags > 0 ? subTotal / record.bags : 0;
-        clone.querySelector('#pdf1_rComm').innerText = rComm + '%';
-        clone.querySelector('#pdf1_aComm').innerText = '₹' + commAmt.toFixed(2);
-        clone.querySelector('#pdf1_rLabour').innerText = '₹' + labourRate.toFixed(2) + '/bag';
-        clone.querySelector('#pdf1_aLabour').innerText = '₹' + labourAmt.toFixed(2);
-        clone.querySelector('#pdf1_rStitch').innerText = '₹' + rStitch + '/bag';
-        clone.querySelector('#pdf1_aStitch').innerText = '₹' + stitchAmt.toFixed(2);
-        clone.querySelector('#pdf1_rLoad').innerText = '₹' + rLoad + '/bag';
-        clone.querySelector('#pdf1_aLoad').innerText = '₹' + loadAmt.toFixed(2);
-        clone.querySelector('#pdf1_tCharges').innerText = '₹' + totalCharges.toFixed(2);
-        clone.querySelector('#pdf1_subTotal').innerText = subTotal.toFixed(2);
-        clone.querySelector('#pdf1_avgRate').innerText = avgRate.toFixed(2);
+      if(type==='I'){
+        setText(clone,'#pdf1_firmName',settings.shopName); setText(clone,'#pdf1_date',d);
+        setText(clone,'#pdf1_address',(settings.address1||'')+(settings.address2?', '+settings.address2:''));
+        setText(clone,'#pdf1_contact',settings.contact||''); setText(clone,'#pdf1_license',settings.license||''); setText(clone,'#pdf1_gst',settings.gst||'');
+        setText(clone,'#pdf1_commodity',record.crop+' ('+record.bagWeight+'kg)');
+        setText(clone,'#pdf1_bags',record.bags+' bags + '+record.loose+' kg');
+        setText(clone,'#pdf1_qtl',record.totalQtl.toFixed(2)+' Qtl'); setText(clone,'#pdf1_rate','₹'+record.price.toFixed(2));
+        setText(clone,'#pdf1_totalAmt','₹'+record.totalAmount.toFixed(2));
+        const rComm=2.5, rStitch=1.71, rLoad=3.15; const comm=record.totalAmount*rComm/100;
+        const labourAmt=record.labourDeduction; const stitch=rStitch*record.bags; const load=rLoad*record.bags;
+        const tCharges=comm+labourAmt+stitch+load; const subTotal=record.totalAmount+tCharges;
+        setText(clone,'#pdf1_rComm',rComm+'%'); setText(clone,'#pdf1_aComm','₹'+comm.toFixed(2));
+        setText(clone,'#pdf1_rLabour','₹'+(record.labourRate||7.16).toFixed(2)+'/bag'); setText(clone,'#pdf1_aLabour','₹'+labourAmt.toFixed(2));
+        setText(clone,'#pdf1_rStitch','₹'+rStitch+'/bag'); setText(clone,'#pdf1_aStitch','₹'+stitch.toFixed(2));
+        setText(clone,'#pdf1_rLoad','₹'+rLoad+'/bag'); setText(clone,'#pdf1_aLoad','₹'+load.toFixed(2));
+        setText(clone,'#pdf1_tCharges','₹'+tCharges.toFixed(2)); setText(clone,'#pdf1_subTotal',subTotal.toFixed(2));
+        setText(clone,'#pdf1_avgRate',(record.bags?(subTotal/record.bags):0).toFixed(2));
       } else {
-        clone.querySelector('#pdf2_firmName').innerText = settings.shopName || "Code Xyra Trading";
-        clone.querySelector('#pdf2_date').innerText = d;
-        clone.querySelector('#pdf2_farmer').innerText = record.farmer;
-        clone.querySelector('#pdf2_crop').innerText = record.crop;
-        clone.querySelector('#pdf2_bags').innerText = record.bags + ' bags + ' + record.loose + ' kg';
-        clone.querySelector('#pdf2_qtl').innerText = record.totalQtl.toFixed(2) + ' Qtl';
-        clone.querySelector('#pdf2_rate').innerText = record.price.toFixed(2);
-        clone.querySelector('#pdf2_subTotal').innerText = record.totalAmount.toFixed(2);
-        const labourRate = record.labourRate || 7.16;
-        clone.querySelector('#pdf2_rLabour').innerText = labourRate.toFixed(2);
-        clone.querySelector('#pdf2_aLabour').innerText = record.labourDeduction.toFixed(2);
-        clone.querySelector('#pdf2_total').innerText = record.jFormTotal.toFixed(2);
-        const jAvg = record.bags > 0 ? record.jFormTotal / record.bags : 0;
-        clone.querySelector('#pdf2_avgRate').innerText = jAvg.toFixed(2);
+        setText(clone,'#pdf2_firmName',settings.shopName); setText(clone,'#pdf2_date',d);
+        setText(clone,'#pdf2_farmer',record.farmer); setText(clone,'#pdf2_crop',record.crop);
+        setText(clone,'#pdf2_bags',record.bags+' bags + '+record.loose+' kg');
+        setText(clone,'#pdf2_qtl',record.totalQtl.toFixed(2)+' Qtl'); setText(clone,'#pdf2_rate',record.price.toFixed(2));
+        setText(clone,'#pdf2_subTotal',record.totalAmount.toFixed(2)); setText(clone,'#pdf2_rLabour',(record.labourRate||7.16).toFixed(2));
+        setText(clone,'#pdf2_aLabour',record.labourDeduction.toFixed(2)); setText(clone,'#pdf2_total',record.jFormTotal.toFixed(2));
+        setText(clone,'#pdf2_avgRate',(record.bags?(record.jFormTotal/record.bags):0).toFixed(2));
       }
-      document.body.appendChild(clone);
-      await new Promise(r => setTimeout(r, 300));
-      const canvas = await html2canvas(clone, { scale: 3, backgroundColor: '#ffffff' });
-      const imgData = canvas.toDataURL('image/png');
-      const { jsPDF } = window.jspdf;
-      const pdf = new jsPDF({ unit: 'mm', format: 'a4' });
-      const imgWidth = 210;
-      const imgHeight = (canvas.height * imgWidth) / canvas.width;
-      pdf.addImage(imgData, 'PNG', 0, 0, imgWidth, imgHeight);
-      const pdfBlob = pdf.output('blob');
-      zip.file(`${type}-Form_${record.farmer.replace(/\s/g, '_')}_${record.crop}.pdf`, pdfBlob);
-      clone.remove();
+      document.body.appendChild(clone); await new Promise(r=>setTimeout(r,300));
+      try{
+        const canvas=await html2canvas(clone,{scale:3,backgroundColor:'#fff'});
+        const {jsPDF}=window.jspdf; const pdf=new jsPDF({unit:'mm',format:'a4'});
+        pdf.addImage(canvas.toDataURL('image/png'),'PNG',0,0,210,canvas.height*210/canvas.width);
+        pdf.save(`${type}-Form_${record.farmer}_${record.crop}.pdf`);
+      }catch(e){ alert('PDF error'); } finally{ clone.remove(); }
     }
-    const zipBlob = await zip.generateAsync({ type: 'blob' });
-    const link = document.createElement('a');
-    link.href = URL.createObjectURL(zipBlob);
-    link.download = `${type}_Forms_Batch.zip`;
-    link.click();
-    URL.revokeObjectURL(link.href);
-    alert(`✅ ${records.length} ${type}-Forms zipped`);
-  }
+    function setText(clone,sel,val){ const el=clone.querySelector(sel); if(el) el.innerText=val; }
 
-  function exportCSV() {
-    if (allRecords.length === 0) { alert('No records to export'); return; }
-    const headers = ['Date & Time', 'Farmer Name', 'Crop', 'Bags', 'Loose (kg)', 'Bag Weight (kg)', 'Weight (Qtl)', 'Price/Qtl', 'Total Amount (₹)', 'Labour Deduction (₹)', 'J-Form Total (₹)'];
-    const rows = allRecords.map(r => [
-      r.timestamp, r.farmer, r.crop, r.bags, r.loose, r.bagWeight, r.totalQtl.toFixed(2), r.price, r.totalAmount.toFixed(2), r.labourDeduction.toFixed(2), r.jFormTotal.toFixed(2)
-    ]);
-    const csvContent = [headers, ...rows].map(row => row.map(cell => `"${String(cell).replace(/"/g, '""')}"`).join(',')).join('\n');
-    const blob = new Blob(["\uFEFF" + csvContent], { type: 'text/csv;charset=utf-8;' });
-    const link = document.createElement('a');
-    link.href = URL.createObjectURL(blob);
-    link.download = `mandi_history_${new Date().toISOString().slice(0,19)}.csv`;
-    link.click();
-    URL.revokeObjectURL(link.href);
-  }
+    async function batchGenerate(type){
+      const selected=Array.from(document.querySelectorAll('.row-select:checked')).map(cb=>parseInt(cb.dataset.id));
+      if(!selected.length) return alert('Select records');
+      const records=allRecords.filter(r=>selected.includes(r.id));
+      const zip=new JSZip(); const settings=JSON.parse(localStorage.getItem('arhatiyaShopSettings')||'{"shopName":"Code Xyra Trading"}');
+      for(let rec of records){
+        const clone=document.getElementById(type==='I'?'pdfIFormTemplate':'pdfJFormTemplate').cloneNode(true);
+        clone.style.position='fixed'; clone.style.left='-9999px'; clone.style.width='860px';
+        const d=new Date(rec.timestamp).toLocaleDateString('en-IN');
+        if(type==='I'){
+          setText(clone,'#pdf1_firmName',settings.shopName); setText(clone,'#pdf1_date',d);
+          setText(clone,'#pdf1_commodity',rec.crop); setText(clone,'#pdf1_bags',rec.bags+' bags');
+          setText(clone,'#pdf1_qtl',rec.totalQtl.toFixed(2)); setText(clone,'#pdf1_rate','₹'+rec.price);
+          setText(clone,'#pdf1_totalAmt','₹'+rec.totalAmount.toFixed(2));
+          // simplified charges
+        } else {
+          setText(clone,'#pdf2_firmName',settings.shopName); setText(clone,'#pdf2_date',d);
+          setText(clone,'#pdf2_farmer',rec.farmer); setText(clone,'#pdf2_crop',rec.crop);
+          setText(clone,'#pdf2_bags',rec.bags+' bags'); setText(clone,'#pdf2_qtl',rec.totalQtl.toFixed(2));
+          setText(clone,'#pdf2_rate',rec.price.toFixed(2)); setText(clone,'#pdf2_subTotal',rec.totalAmount.toFixed(2));
+          setText(clone,'#pdf2_aLabour',rec.labourDeduction.toFixed(2)); setText(clone,'#pdf2_total',rec.jFormTotal.toFixed(2));
+        }
+        document.body.appendChild(clone); await new Promise(r=>setTimeout(r,200));
+        const canvas=await html2canvas(clone,{scale:2.5,backgroundColor:'#fff'});
+        const pdf=new window.jspdf.jsPDF({unit:'mm',format:'a4'});
+        pdf.addImage(canvas.toDataURL('image/png'),'PNG',0,0,210,canvas.height*210/canvas.width);
+        zip.file(`${type}-Form_${rec.farmer}_${rec.id}.pdf`, pdf.output('blob'));
+        clone.remove();
+      }
+      const blob=await zip.generateAsync({type:'blob'});
+      const a=document.createElement('a'); a.href=URL.createObjectURL(blob); a.download=`${type}_Forms_Batch.zip`; a.click();
+    }
+    function exportCSV(){
+      if(!allRecords.length) return alert('No data');
+      const rows=allRecords.map(r=>[r.timestamp,r.farmer,r.crop,r.bags,r.loose,r.bagWeight,r.totalQtl.toFixed(2),r.price,r.totalAmount.toFixed(2),r.labourDeduction.toFixed(2),r.jFormTotal.toFixed(2)]);
+      const csv=[['Date','Farmer','Crop','Bags','Loose','BagWt','Qtl','Price','Total','Labour','JTotal'],...rows].map(r=>r.map(c=>`"${c}"`).join(',')).join('\n');
+      const blob=new Blob(['\uFEFF'+csv],{type:'text/csv'});
+      const a=document.createElement('a'); a.href=URL.createObjectURL(blob); a.download='mandi_history.csv'; a.click();
+    }
 
-  function escapeHtml(str) { return str.replace(/[&<>]/g, function(m) { if(m==='&') return '&amp;'; if(m==='<') return '&lt;'; if(m==='>') return '&gt;'; return m; }); }
-
-  document.getElementById('searchInput').addEventListener('input', applyFilter);
-  document.getElementById('exportCsvBtn').addEventListener('click', exportCSV);
-  document.getElementById('batchIFormBtn').addEventListener('click', () => batchGenerate('I'));
-  document.getElementById('batchJFormBtn').addEventListener('click', () => batchGenerate('J'));
-  document.getElementById('clearAllBtn').addEventListener('click', () => { if(confirm('Delete ALL records?')) { localStorage.removeItem('mandiHistory'); loadHistory(); } });
-  loadHistory();
+    document.getElementById('searchInput').addEventListener('input', applyFilter);
+    document.getElementById('exportCsvBtn').onclick=exportCSV;
+    document.getElementById('batchIFormBtn').onclick=()=>batchGenerate('I');
+    document.getElementById('batchJFormBtn').onclick=()=>batchGenerate('J');
+    document.getElementById('clearAllBtn').onclick=()=>{ if(confirm('Delete all records?')){ localStorage.removeItem('mandiHistory'); loadHistory(); } };
+    loadHistory();
+  })();
 </script>
 </body>
 </html>
