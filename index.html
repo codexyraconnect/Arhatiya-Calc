@@ -4,12 +4,6 @@
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=yes, viewport-fit=cover">
   <title>Free Arhatiya Calculator Online – I Form & J Form Mandi Bill Generator Punjab</title>
-  <p>
-Arhatiya Calculator is a free online mandi bill generator for arhtiyas and farmers in Punjab.
-It helps you generate accurate I-Form and J-Form PDFs instantly, calculate commission,
-and manage mandi transactions. This tool works offline and saves your records securely.
-</p>
-
 <meta name="keywords" content="arhatiya calculator, mandi calculator, i form j form, mandi bill generator, punjab mandi calculator">
 
   <link rel="manifest" href="manifest.json">
@@ -59,7 +53,7 @@ and manage mandi transactions. This tool works offline and saves your records se
       padding-right: 80px;
     }
     .settings-btn {
-      position: absolute;
+      position: static;
       top: 12px;
       right: 16px;
       background: #f97316;
@@ -399,14 +393,39 @@ and manage mandi transactions. This tool works offline and saves your records se
       .charge-name { font-size: 0.8rem; }
       .bag-btn { font-size: 0.75rem; padding: 6px 0; }
     }
+    .header-actions {
+  position: absolute;
+  top: 12px;
+  right: 16px;
+  display: flex;
+  gap: 8px;
+}
+.guide-btn {
+  background: #3b82f6;
+  border: none;
+  border-radius: 40px;
+  padding: 8px 16px;
+  font-size: 0.8rem;
+  font-weight: bold;
+  cursor: pointer;
+  font-family: 'Baloo 2', cursive;
+  color: white;
+  text-decoration: none;
+  display: inline-block;
+  box-shadow: 0 2px 6px rgba(0,0,0,0.2);
+}
   </style>
 </head>
 <body>
 <div class="app-container">
   <div class="shop-header">
     <div class="shop-name"><span id="shopNameDisplay">🌾 Code Xyra Trading</span></div>
+    
     <div class="shop-address" id="shopAddressDisplay"></div>
-    <button class="settings-btn" id="settingsBtn" aria-label="Settings">⚙️ Settings</button>
+    <div class="header-actions">
+  <a href="i-form-j-form-guide.html" class="guide-btn" aria-label="Guide">📘 Guide</a>
+  <button class="settings-btn" id="settingsBtn" aria-label="Settings">⚙️ Settings</button>
+</div>
     <div id="settingsPanel" class="settings-panel">
       <label>Shop Name</label>
       <input type="text" id="shopNameInput" placeholder="Shop Name">
