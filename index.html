@@ -65,13 +65,39 @@
       flex-wrap: wrap;
       padding-right: 140px;
     }
-    .header-actions {
-      position: absolute;
-      top: 12px;
-      right: 16px;
-      display: flex;
-      gap: 8px;
-    }
+.header-actions {
+  position: absolute;
+  top: 12px;
+  right: 16px;
+  display: flex;
+  align-items: center;
+  gap: 10px;
+}
+.header-actions {
+  position: absolute;
+  top: 12px;
+  right: 16px;
+  display: flex;
+  align-items: center;
+  gap: 10px;
+}
+
+/* Mobile Fix */
+@media (max-width: 600px) {
+  .header-actions {
+    position: static; /* REMOVE absolute on mobile */
+    margin-top: 10px;
+    justify-content: center;
+    flex-direction: column;
+    width: 100%;
+  }
+
+  .guide-btn,
+  .settings-btn {
+    width: 90%;
+    text-align: center;
+  }
+}
     .guide-btn, .settings-btn {
       background: #3b82f6;
       border: none;
